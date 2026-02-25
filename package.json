@@ -2,7 +2,7 @@
   "name": "billion-bureau",
   "version": "1.0.0",
   "scripts": {
-    "start": "node outreach-dashboard/server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^1.13.5",
