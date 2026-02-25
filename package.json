@@ -1,5 +1,15 @@
 {
+  "name": "billion-bureau",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node outreach-dashboard/server.js"
+  },
   "dependencies": {
-    "axios": "^1.13.5"
+    "axios": "^1.13.5",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "open": "^11.0.0",
+    "playwright": "^1.58.2"
   }
 }
