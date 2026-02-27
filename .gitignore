@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+*.log
+leads.json
+outreach_log.json
+outreach_links.json
+.env
+.gemini
+package-lock.json

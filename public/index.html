@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Vibe | Outreach Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Market Vibe</h1>
+            <p>High-Ticket Outreach Dashboard</p>
+        </header>
+
+        <section class="telemetry">
+            <h2>Live Telemetry Feed</h2>
+            <div id="logFeed" class="log-container">
+                <div class="log-line">Waiting for bot pulse...</div>
+            </div>
+        </section>
+
+        <section class="add-lead">
+            <h2>Add New Lead</h2>
+            <div class="form-group">
+                <input type="text" id="leadName" placeholder="Name">
+                <select id="leadPlatform">
+                    <option value="Facebook">Facebook</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Fiverr">Fiverr</option>
+                </select>
+                <input type="text" id="leadUrl" placeholder="Profile URL">
+                <button onclick="addLead()">Add Lead</button>
+            </div>
+        </section>
+
+        <section class="leads-list">
+            <h2>Active Leads</h2>
+            <div id="leadsContainer">
+                <p>Loading leads...</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for Message Generation -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Custom Outreach Message</h2>
+            <div class="mode-toggle">
+                <label><input type="checkbox" id="humanisticToggle" checked> Humanistic Mode Active</label>
+            </div>
+            <textarea id="aiMessage" rows="10"></textarea>
+            <div class="modal-actions">
+                <button class="btn-demo" onclick="simulateTyping()">Test Typing Logic</button>
+                <button id="copyOpenBtn" onclick="copyAndOpen()">Copy &amp; Open Profile</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
