@@ -60,5 +60,5 @@ module.exports = {
 
     // === MONETIZATION ===
     // The link shared with leads to book a call or finalize a lease
-    PORTAL_URL: 'https://sad-boxes-talk.loca.lt/access',
+    PORTAL_URL: 'https://outreach-dashboard-6k0s.onrender.com/access',
 };
