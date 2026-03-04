@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Outreach Studio — Dashboard</title>
+    <meta name="description" content="Generate AI outreach, closing scripts, and viral comments from your Outreach Studio dashboard.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<!-- Nav -->
+<nav>
+    <a href="/" class="nav-logo">
+        <div class="logo-dot"></div>
+        Outreach Studio
+    </a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#pricing">Upgrade</a>
+    </div>
+    <div class="api-key-bar" style="margin:0;width:340px;padding:0.45rem 0.9rem">
+        <span style="font-size:0.75rem;color:var(--text-dim);white-space:nowrap">API Key</span>
+        <input id="apiKeyInput" type="password" placeholder="Enter your API key..." oninput="onKeyInput(event)" autocomplete="off">
+        <span id="keyStatus" class="key-status"></span>
+    </div>
+</nav>
+
+<div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">AI Tools</div>
+            <button class="tool-btn" data-tool="strategy" id="btn-strategy" onclick="switchTool('strategy')">
+                <span class="tool-icon">⚡</span> Strategy Generator
+            </button>
+            <button class="tool-btn" data-tool="closer" id="btn-closer" onclick="switchTool('closer')">
+                <span class="tool-icon">🎯</span> Closer Engine
+            </button>
+            <button class="tool-btn" data-tool="viral" id="btn-viral" onclick="switchTool('viral')">
+                <span class="tool-icon">🔥</span> Viral Comments
+            </button>
+            <button class="tool-btn" data-tool="validate" id="btn-validate" onclick="switchTool('validate')">
+                <span class="tool-icon">✅</span> Peer Validator
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">Usage</div>
+            <div class="usage-box">
+                <div class="usage-header">
+                    <span class="usage-title">Daily Credits</span>
+                    <span id="usagePlan" class="usage-plan">—</span>
+                </div>
+                <div class="usage-bar-track">
+                    <div id="usageFill" class="usage-bar-fill" style="width:0%"></div>
+                </div>
+                <div id="usageNums" class="usage-numbers">Enter API key to view usage</div>
+                <a href="/#pricing" class="upgrade-link">⬆️ Upgrade Plan</a>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">Demo Keys</div>
+            <div style="font-size:0.72rem;color:var(--text-dim);line-height:2;padding:0 0.5rem">
+                <div>Free: <code style="color:var(--accent-2)">free-demo-key-001</code></div>
+                <div>Pro: <code style="color:var(--accent-2)">pro-demo-key-001</code></div>
+                <div>Agency: <code style="color:var(--accent-2)">agency-demo-key-001</code></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 id="pageTitle" class="page-title">⚡ Strategy Generator</h1>
+            <p id="pageSub" class="page-sub">Generate personalized outreach messages and follow-ups for any lead.</p>
+        </div>
+
+        <!-- ── Strategy Panel ── -->
+        <div id="panel-strategy" class="tool-panel">
+            <div class="card">
+                <div class="card-title">⚡ Lead Details</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="s_name">Lead Full Name</label>
+                        <input id="s_name" class="form-input" type="text" placeholder="e.g. Sarah Chen">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="s_platform">Platform</label>
+                        <select id="s_platform" class="form-input form-select">
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Twitter / X">Twitter / X</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Email">Email</option>
+                            <option value="Cold Call">Cold Call</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="s_notes">Lead Notes / Context</label>
+                    <textarea id="s_notes" class="form-textarea" rows="4"
+                        placeholder="e.g. Founder of a Series A SaaS company, 40-person team, recently posted about scaling outreach. Frustrated with manual prospecting."></textarea>
+                </div>
+                <div class="generate-btn-wrap">
+                    <button id="genBtn-strategy" class="btn btn-primary" onclick="generate('strategy')">⚡ Generate Strategy</button>
+                    <div id="spinner-strategy" class="generating-state" style="display:none">
+                        <div class="spinner"></div> <span>Generating...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="output-panel">
+                <div class="output-label">AI Output</div>
+                <button id="copy-strategy" class="copy-btn" onclick="copyOutput('strategy')">📋 Copy</button>
+                <div id="output-strategy">
+                    <div class="output-content empty">Output will appear here...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Closer Panel ── -->
+        <div id="panel-closer" class="tool-panel">
+            <div class="card">
+                <div class="card-title">🎯 Conversation Thread</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="c_name">Lead Name (optional)</label>
+                        <input id="c_name" class="form-input" type="text" placeholder="e.g. Marcus Webb">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="c_notes">Lead Context (optional)</label>
+                        <input id="c_notes" class="form-input" type="text" placeholder="e.g. E-commerce founder, 7-figure store">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="c_thread">Conversation Thread</label>
+                    <textarea id="c_thread" class="form-textarea" rows="7"
+                        placeholder="Paste the full conversation here...&#10;&#10;You: Hey Marcus, noticed your post about scaling challenges...&#10;Marcus: Yes, outreach is killing us. We spend 3 hours/day on it manually.&#10;You: That's exactly the bottleneck I help founders remove...&#10;Marcus: Interesting. Is this some kind of bot?"></textarea>
+                </div>
+                <div class="generate-btn-wrap">
+                    <button id="genBtn-closer" class="btn btn-primary" onclick="generate('closer')">🎯 Generate Closing Reply</button>
+                    <div id="spinner-closer" class="generating-state" style="display:none">
+                        <div class="spinner"></div> <span>Generating...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="output-panel">
+                <div class="output-label">AI Output</div>
+                <button id="copy-closer" class="copy-btn" onclick="copyOutput('closer')">📋 Copy</button>
+                <div id="output-closer">
+                    <div class="output-content empty">Output will appear here...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Viral Panel ── -->
+        <div id="panel-viral" class="tool-panel">
+            <div class="card">
+                <div class="card-title">🔥 Post Content</div>
+                <div class="form-group">
+                    <label class="form-label" for="v_persona">Your Persona Name</label>
+                    <input id="v_persona" class="form-input" type="text" placeholder="e.g. Alex Rivera, Chief Strategy Officer">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="v_post">Post Content to Comment On</label>
+                    <textarea id="v_post" class="form-textarea" rows="6"
+                        placeholder="Paste the post content here...&#10;&#10;e.g. 'We doubled revenue this year but our team is exhausted. There's got to be a better way to scale without burning out.'"></textarea>
+                </div>
+                <div class="generate-btn-wrap">
+                    <button id="genBtn-viral" class="btn btn-primary" onclick="generate('viral')">🔥 Generate Comment</button>
+                    <div id="spinner-viral" class="generating-state" style="display:none">
+                        <div class="spinner"></div> <span>Generating...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="output-panel">
+                <div class="output-label">AI Output</div>
+                <button id="copy-viral" class="copy-btn" onclick="copyOutput('viral')">📋 Copy</button>
+                <div id="output-viral">
+                    <div class="output-content empty">Output will appear here...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Validate Panel ── -->
+        <div id="panel-validate" class="tool-panel">
+            <div class="card">
+                <div class="card-title">✅ Peer Validation</div>
+                <div class="form-group">
+                    <label class="form-label" for="val_persona">Your Persona Name</label>
+                    <input id="val_persona" class="form-input" type="text" placeholder="e.g. Jordan Kline, Operations Architect">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="val_post">Original Post</label>
+                    <textarea id="val_post" class="form-textarea" rows="4"
+                        placeholder="Paste the original post..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="val_peer">Peer's Comment (to validate)</label>
+                    <textarea id="val_peer" class="form-textarea" rows="4"
+                        placeholder="Paste your peer's comment that you want to validate and expand on..."></textarea>
+                </div>
+                <div class="generate-btn-wrap">
+                    <button id="genBtn-validate" class="btn btn-primary" onclick="generate('validate')">✅ Generate Validation Reply</button>
+                    <div id="spinner-validate" class="generating-state" style="display:none">
+                        <div class="spinner"></div> <span>Generating...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="output-panel">
+                <div class="output-label">AI Output</div>
+                <button id="copy-validate" class="copy-btn" onclick="copyOutput('validate')">📋 Copy</button>
+                <div id="output-validate">
+                    <div class="output-content empty">Output will appear here...</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

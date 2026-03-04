@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful — AI Outreach Studio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .success-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .success-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .check-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
+            border: 2px solid rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .key-display {
+            background: rgba(124, 58, 237, 0.12);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .key-display:hover {
+            background: rgba(124, 58, 237, 0.18);
+        }
+
+        .key-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #a855f7;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-value {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #f0f0f8;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        .copy-hint {
+            font-size: 0.72rem;
+            color: #555577;
+            margin-top: 0.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.875rem;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #8888aa;
+        }
+
+        .info-val {
+            color: #f0f0f8;
+            font-weight: 600;
+        }
+
+        .loading-msg {
+            color: #8888aa;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mesh"></div>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <div class="logo-dot"></div>
+            Outreach Studio
+        </a>
+    </nav>
+
+    <div class="success-wrap">
+        <div class="success-card">
+            <div class="check-icon">✅</div>
+            <h1 style="font-size:1.6rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem">Payment Confirmed!
+            </h1>
+            <p style="color:#8888aa;font-size:0.95rem;margin-bottom:0">Your API key has been generated and sent to your
+                email.</p>
+
+            <div id="keySection" style="display:none">
+                <div class="key-display" onclick="copyKey()" title="Click to copy">
+                    <div class="key-label">🔑 Your API Key</div>
+                    <div id="keyValue" class="key-value">Loading...</div>
+                    <div class="copy-hint">Click to copy</div>
+                </div>
+
+                <div
+                    style="background:rgba(255,255,255,0.03);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem;text-align:left">
+                    <div id="planRow" class="info-row"><span class="info-label">Plan</span><span class="info-val"
+                            id="planVal">—</span></div>
+                    <div class="info-row"><span class="info-label">Email</span><span class="info-val"
+                            id="emailVal">—</span></div>
+                    <div class="info-row"><span class="info-label">Key emailed to you?</span><span class="info-val"
+                            style="color:#10b981">✓ Yes</span></div>
+                </div>
+            </div>
+
+            <div id="loadingMsg" class="loading-msg">
+                <div class="spinner" style="margin:0 auto 0.75rem"></div>
+                Fetching your key...
+            </div>
+
+            <div id="emailMsg"
+                style="display:none;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:0.9rem;font-size:0.85rem;color:#10b981;margin-bottom:1.5rem">
+                📧 Check your inbox — we also emailed your key for safekeeping.
+            </div>
+
+            <a href="/app" id="dashboardBtn" class="btn btn-primary btn-lg"
+                style="text-decoration:none;display:none;width:100%;justify-content:center">
+                Open Dashboard →
+            </a>
+
+            <p style="color:#555577;font-size:0.78rem;margin-top:1.25rem">
+                Save your API key somewhere safe. You'll use it to access the dashboard.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('order_id') || params.get('sale_id') || params.get('session_id');
+        const email = params.get('email');
+
+        async function fetchKey() {
+            if (!orderId && !email) {
+                document.getElementById('loadingMsg').innerHTML = '<span style="color:#ef4444">⚠️ No order ID found. Check your email for your API key.</span>';
+                return;
+            }
+
+            try {
+                const query = orderId ? `orderId=${encodeURIComponent(orderId)}` : `email=${encodeURIComponent(email)}`;
+                const res = await fetch(`/api/webhooks/key-lookup?${query}`);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    showKey(data);
+                } else {
+                    // Retry after 2 seconds in case webhook is still processing
+                    setTimeout(fetchKey, 2000);
+                }
+            } catch {
+                document.getElementById('loadingMsg').innerHTML = '<span style="color:#f59e0b">Check your email — your key was sent there.</span>';
+            }
+        }
+
+        function showKey(data) {
+            document.getElementById('loadingMsg').style.display = 'none';
+            document.getElementById('keySection').style.display = 'block';
+            document.getElementById('emailMsg').style.display = 'block';
+            document.getElementById('dashboardBtn').style.display = 'flex';
+            document.getElementById('keyValue').textContent = data.apiKey;
+            document.getElementById('planVal').textContent = data.plan.charAt(0).toUpperCase() + data.plan.slice(1);
+            document.getElementById('emailVal').textContent = data.email || '—';
+        }
+
+        function copyKey() {
+            const key = document.getElementById('keyValue').textContent;
+            navigator.clipboard.writeText(key).then(() => {
+                const el = document.querySelector('.copy-hint');
+                el.textContent = '✓ Copied!';
+                el.style.color = '#10b981';
+                setTimeout(() => { el.textContent = 'Click to copy'; el.style.color = ''; }, 2000);
+            });
+        }
+
+        // Start fetching
+        fetchKey();
+    </script>
+</body>
+
+</html>
