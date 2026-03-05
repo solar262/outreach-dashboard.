@@ -1,4 +1,4 @@
-const { getUser, checkAndIncrementUsage } = require('../db/users');
+const { getUser, checkAndIncrementUsage, PLANS } = require('../db/users');
 const { getProvisionedUser } = require('../provisioner');
 
 /**
@@ -16,13 +16,13 @@ function authMiddleware(req, res, next) {
     const provisioned = getProvisionedUser(apiKey);
     if (provisioned) {
         // Enforce daily limits for provisioned keys
-        const limits = { free: 5, pro: 500, agency: Infinity };
+        const planData = PLANS[provisioned.plan] || PLANS.free;
         const today = new Date().toDateString();
         if (provisioned.lastReset !== today) {
             provisioned.usageToday = 0;
             provisioned.lastReset = today;
         }
-        const limit = limits[provisioned.plan] || 5;
+        const limit = planData.dailyLimit;
         if (provisioned.usageToday >= limit) {
             return res.status(429).json({
                 error: `Daily limit reached (${limit} generations/day on ${provisioned.plan} plan). Upgrade to unlock more.`,
@@ -35,7 +35,7 @@ function authMiddleware(req, res, next) {
             allowed: true,
             usage: provisioned.usageToday,
             limit,
-            plan: provisioned.plan.charAt(0).toUpperCase() + provisioned.plan.slice(1),
+            plan: planData.name,
             remaining: limit === Infinity ? 'Unlimited' : limit - provisioned.usageToday,
         };
         return next();

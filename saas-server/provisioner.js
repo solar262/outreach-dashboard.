@@ -1,9 +1,36 @@
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const { PLANS } = require('./db/users');
 
-// In-memory provisioned keys store
-// In production: replace with a real DB (Supabase, PlanetScale, etc.)
-const provisionedKeys = {};
+// File-based persistence for provisioned keys
+const DB_PATH = path.join(__dirname, 'db/provisioned_keys.json');
+
+// Ensure db directory exists
+if (!fs.existsSync(path.dirname(DB_PATH))) {
+    fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+}
+
+// Load initial state
+let provisionedKeys = {};
+try {
+    if (fs.existsSync(DB_PATH)) {
+        const data = fs.readFileSync(DB_PATH, 'utf8');
+        provisionedKeys = JSON.parse(data);
+        console.log(`[Provisioner] Loaded ${Object.keys(provisionedKeys).length} keys from disk.`);
+    }
+} catch (err) {
+    console.error('[Provisioner] Failed to load keys:', err.message);
+    provisionedKeys = {};
+}
+
+function saveToDisk() {
+    try {
+        fs.writeFileSync(DB_PATH, JSON.stringify(provisionedKeys, null, 2));
+    } catch (err) {
+        console.error('[Provisioner] Failed to save keys:', err.message);
+    }
+}
 
 /**
  * Maps a Gumroad product permalink or Stripe price ID to a plan tier.
@@ -49,6 +76,7 @@ function provisionKey({ customerEmail, customerName, plan, source, orderId }) {
     };
 
     console.log(`[Provisioning] ✅ New ${plan.toUpperCase()} key issued to ${customerEmail}: ${apiKey}`);
+    saveToDisk();
     return provisionedKeys[apiKey];
 }
 

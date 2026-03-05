@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const { getUsageStats } = require('../db/users');
+const { getUsageStats, PLANS } = require('../db/users');
+const { getProvisionedUser } = require('../provisioner');
 const axios = require('axios');
 const cfg = require('../config');
 
@@ -37,6 +38,28 @@ async function callGroq(systemPrompt, userPrompt) {
 router.get('/usage', (req, res) => {
     const apiKey = req.headers['x-api-key'] || req.query.apiKey;
     if (!apiKey) return res.status(401).json({ error: 'Missing API key' });
+
+    // 1. Check provisioned keys (real customers)
+    const provisioned = getProvisionedUser(apiKey);
+    if (provisioned) {
+        const planData = PLANS[provisioned.provisionedPlan || provisioned.plan] || PLANS.free;
+        // Handle in-memory reset for stats display
+        const today = new Date().toDateString();
+        if (provisioned.lastReset !== today) {
+            provisioned.usageToday = 0;
+            provisioned.lastReset = today;
+        }
+        return res.json({
+            name: provisioned.name,
+            plan: planData.name,
+            usage: provisioned.usageToday,
+            limit: planData.dailyLimit,
+            remaining: planData.dailyLimit === Infinity ? 'Unlimited' : planData.dailyLimit - provisioned.usageToday,
+            price: planData.price
+        });
+    }
+
+    // 2. Fall back to demo keys
     const stats = getUsageStats(apiKey);
     if (!stats) return res.status(401).json({ error: 'Invalid API key' });
     res.json(stats);
