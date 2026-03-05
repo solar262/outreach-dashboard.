@@ -994,3 +994,44 @@ footer {
         display: none;
     }
 }
+/* --- Toasts & Notifications ------------------------------------------------ */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    padding: 1rem 1.5rem;
+    background: rgba(13, 14, 22, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-high);
+    border-radius: var(--radius-md);
+    color: var(--text-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: slideInLow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    max-width: 380px;
+}
+
+.toast.error {
+    border-left: 4px solid var(--danger);
+}
+
+.toast.success {
+    border-left: 4px solid var(--success);
+}
+
+.toast.warning {
+    border-left: 4px solid var(--warning);
+}
+
+@keyframes slideInLow {
+    from {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
