@@ -164,4 +164,121 @@ Generate a validation reply that boosts both of your authority.`;
     res.json({ reply, usage: res.locals.usage });
 });
 
+// ─── Email Architect Generator ────────────────────────────────────────────────
+
+router.post('/generate/email', auth, async (req, res) => {
+    const { companyName, valueProp, context } = req.body;
+    if (!companyName || !valueProp || !context) return res.status(400).json({ error: 'All fields are required.' });
+
+    const systemPrompt = `You are a world-class B2B copywriter. Create a 4-day cold email sequence.
+The emails must be short, punchy, and instantly show value. No fluff.
+Focus on: ${valueProp}`;
+
+    const userPrompt = `Prospect Company: ${companyName}
+Context: ${context}
+
+Generate:
+1. Day 1 (Cold Outreach)
+2. Day 2 (Quick Bump/Value Add)
+3. Day 3 (Case Study/Proof)
+4. Day 4 (Breakup/Soft Close)
+
+Format your reply clearly with labels: DAY1:, DAY2:, DAY3:, DAY4:`;
+
+    const result = await callGroq(systemPrompt, userPrompt);
+
+    let day1, day2, day3, day4;
+    if (result) {
+        const d1Match = result.match(/DAY1:\s*(.+?)(?=DAY2:|$)/s);
+        const d2Match = result.match(/DAY2:\s*(.+?)(?=DAY3:|$)/s);
+        const d3Match = result.match(/DAY3:\s*(.+?)(?=DAY4:|$)/s);
+        const d4Match = result.match(/DAY4:\s*(.+?)$/s);
+        day1 = d1Match?.[1]?.trim() || '';
+        day2 = d2Match?.[1]?.trim() || '';
+        day3 = d3Match?.[1]?.trim() || '';
+        day4 = d4Match?.[1]?.trim() || '';
+    } else {
+        day1 = `Hi name, noticed you are scaling. We help with ${valueProp}. Open to a quick chat?`;
+        day2 = `Any thoughts on my previous note?`;
+        day3 = `We just helped a similar company achieve massive results.`;
+        day4 = `Assuming this isn't a priority right now. Let me know when things change.`;
+    }
+
+    res.json({ day1, day2, day3, day4, usage: res.locals.usage });
+});
+
+// ─── Objection Matrix Generator ───────────────────────────────────────────────
+
+router.post('/generate/objection', auth, async (req, res) => {
+    const { objection, context } = req.body;
+    if (!objection) return res.status(400).json({ error: 'objection is required.' });
+
+    const systemPrompt = `You are a master tactical sales closer. A rep has just received a difficult objection.
+Provide 3 completely different psychological reframes to handle this objection and keep the deal alive.
+Be direct, conversational, and authoritative.`;
+
+    const userPrompt = `Objection: ${objection}
+Context: ${context || 'General Sales Call'}
+
+Generate 3 reframes:
+1. The Logical Reframe
+2. The Emotional Reframe
+3. The "Takeaway" Reframe
+
+Format your reply clearly with labels: REFRAME1:, REFRAME2:, REFRAME3:`;
+
+    const result = await callGroq(systemPrompt, userPrompt);
+
+    let reframe1, reframe2, reframe3;
+    if (result) {
+        const r1Match = result.match(/REFRAME1:\s*(.+?)(?=REFRAME2:|$)/s);
+        const r2Match = result.match(/REFRAME2:\s*(.+?)(?=REFRAME3:|$)/s);
+        const r3Match = result.match(/REFRAME3:\s*(.+?)$/s);
+        reframe1 = r1Match?.[1]?.trim() || '';
+        reframe2 = r2Match?.[1]?.trim() || '';
+        reframe3 = r3Match?.[1]?.trim() || '';
+    } else {
+        reframe1 = `If we can prove the ROI, does that change things?`;
+        reframe2 = `I understand. How is the current situation impacting your day-to-day?`;
+        reframe3 = `It sounds like this might not be the right fit for you right now, and that's okay.`;
+    }
+
+    res.json({ reframe1, reframe2, reframe3, usage: res.locals.usage });
+});
+
+// ─── Profile Analyzer Generator ───────────────────────────────────────────────
+
+router.post('/generate/linkedin', auth, async (req, res) => {
+    const { bio } = req.body;
+    if (!bio) return res.status(400).json({ error: 'bio is required.' });
+
+    const systemPrompt = `You are an expert FBI behavioral profiler turned B2B sales strategist.
+Analyze the provided LinkedIn bio or "About" section. 
+Uncover the prospect's deep psychological drivers, how they make decisions, and what they value.`;
+
+    const userPrompt = `Prospect Bio:
+${bio}
+
+Generate:
+1. Psychological Profile (How they think, what they value, what their ego is tied to)
+2. Strategic Approach (How to pitch them, what words to use, what to avoid)
+
+Format your reply clearly with labels: PROFILE:, STRATEGY:`;
+
+    const result = await callGroq(systemPrompt, userPrompt);
+
+    let profile, strategy;
+    if (result) {
+        const pMatch = result.match(/PROFILE:\s*(.+?)(?=STRATEGY:|$)/s);
+        const sMatch = result.match(/STRATEGY:\s*(.+?)$/s);
+        profile = pMatch?.[1]?.trim() || '';
+        strategy = sMatch?.[1]?.trim() || '';
+    } else {
+        profile = `Highly analytical, values data and tangible results.`;
+        strategy = `Lead with ROI percentages and case studies. Avoid emotional fluff.`;
+    }
+
+    res.json({ profile, strategy, usage: res.locals.usage });
+});
+
 module.exports = router;

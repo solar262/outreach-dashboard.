@@ -78,6 +78,9 @@ function switchTool(tool) {
             title: '✦ Peer Network',
             sub: "Generate social proof by validating and expanding on a peer's comment."
         },
+        email: { title: '📧 Email Architect', sub: 'Generate a high-converting 4-day cold email sequence.' },
+        objection: { title: '🛡️ Objection Matrix', sub: 'Instantly generate psychological reframes for difficult sales objections.' },
+        linkedin: { title: '🔍 Profile Analyzer', sub: 'Extract underlying traits from LinkedIn bios for better discovery calls.' },
     };
     const t = titles[tool] || {};
     const pageTitle = document.getElementById('pageTitle');
@@ -149,6 +152,21 @@ function buildPayload(tool) {
             if (!orig || !peer) { showToast('Both fields are required.', 'error'); return null; }
             return { originalPost: orig, peerComment: peer, validatorPersona: g('val_persona') };
         }
+        case 'email': {
+            const name = g('e_name'), value = g('e_value'), context = g('e_context');
+            if (!name || !value || !context) { showToast('Please fill out all fields.', 'error'); return null; }
+            return { companyName: name, valueProp: value, context };
+        }
+        case 'objection': {
+            const obj = g('o_objection');
+            if (!obj) { showToast('Please enter the objection.', 'error'); return null; }
+            return { objection: obj, context: g('o_context') };
+        }
+        case 'linkedin': {
+            const bio = g('l_bio');
+            if (!bio) { showToast('Please paste the prospect bio.', 'error'); return null; }
+            return { bio };
+        }
     }
 }
 
@@ -190,6 +208,24 @@ function getOutputSections(tool, data) {
             return [{ label: '🔥 Comment', content: data.comment }];
         case 'validate':
             return [{ label: '✅ Validation Reply', content: data.reply }];
+        case 'email':
+            return [
+                { label: '📅 Day 1', content: data.day1 },
+                { label: '📅 Day 2', content: data.day2 },
+                { label: '📅 Day 3', content: data.day3 },
+                { label: '📅 Day 4', content: data.day4 },
+            ];
+        case 'objection':
+            return [
+                { label: '🔄 Reframe 1', content: data.reframe1 },
+                { label: '🔄 Reframe 2', content: data.reframe2 },
+                { label: '🔄 Reframe 3', content: data.reframe3 },
+            ];
+        case 'linkedin':
+            return [
+                { label: '🧠 Psychological Profile', content: data.profile },
+                { label: '♟️ Strategic Approach', content: data.strategy },
+            ];
         default: return [];
     }
 }

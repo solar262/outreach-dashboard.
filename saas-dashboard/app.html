@@ -49,6 +49,16 @@
                 <button class="tool-btn" data-tool="validate" id="btn-validate" onclick="switchTool('validate')">
                     <span class="tool-icon">✦</span> Peer Network
                 </button>
+                <div class="sidebar-label" style="margin-top: 1.5rem">Growth Tools</div>
+                <button class="tool-btn" data-tool="email" id="btn-email" onclick="switchTool('email')">
+                    <span class="tool-icon">📧</span> Email Architect
+                </button>
+                <button class="tool-btn" data-tool="objection" id="btn-objection" onclick="switchTool('objection')">
+                    <span class="tool-icon">🛡️</span> Objection Matrix
+                </button>
+                <button class="tool-btn" data-tool="linkedin" id="btn-linkedin" onclick="switchTool('linkedin')">
+                    <span class="tool-icon">🔍</span> Profile Analyzer
+                </button>
             </div>
 
             <div class="sidebar-section">
@@ -217,6 +227,100 @@
                     <div class="output-label">AI Output</div>
                     <button id="copy-validate" class="copy-btn" onclick="copyOutput('validate')">📋 Copy</button>
                     <div id="output-validate">
+                        <div class="output-content empty">Output will appear here...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Email Panel ── -->
+            <div id="panel-email" class="tool-panel">
+                <div class="card">
+                    <div class="card-title">📧 Target Company Details</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="e_name">Company / Prospect Name</label>
+                            <input id="e_name" class="form-input" type="text" placeholder="e.g. Acme Corp">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="e_value">Your Value Proposition</label>
+                            <input id="e_value" class="form-input" type="text"
+                                placeholder="e.g. We save 20 hours a week on QA">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="e_context">Target Context / Website</label>
+                        <textarea id="e_context" class="form-textarea" rows="4"
+                            placeholder="e.g. They just raised a Series B and are hiring 50 new engineers. Target is the VP of Eng."></textarea>
+                    </div>
+                    <div class="generate-btn-wrap">
+                        <button id="genBtn-email" class="btn btn-primary" onclick="generate('email')">📧 Generate
+                            Sequence</button>
+                        <div id="spinner-email" class="generating-state" style="display:none">
+                            <div class="spinner"></div> <span>Generating...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="output-panel">
+                    <div class="output-label">AI Output</div>
+                    <button id="copy-email" class="copy-btn" onclick="copyOutput('email')">📋 Copy</button>
+                    <div id="output-email">
+                        <div class="output-content empty">Output will appear here...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Objection Panel ── -->
+            <div id="panel-objection" class="tool-panel">
+                <div class="card">
+                    <div class="card-title">🛡️ Objection Details</div>
+                    <div class="form-group">
+                        <label class="form-label" for="o_objection">The Objection</label>
+                        <input id="o_objection" class="form-input" type="text"
+                            placeholder="e.g. It's too expensive right now.">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="o_context">Context (Optional)</label>
+                        <textarea id="o_context" class="form-textarea" rows="3"
+                            placeholder="e.g. Selling a $5k coaching program to a new founder."></textarea>
+                    </div>
+                    <div class="generate-btn-wrap">
+                        <button id="genBtn-objection" class="btn btn-primary" onclick="generate('objection')">🛡️
+                            Generate Reframes</button>
+                        <div id="spinner-objection" class="generating-state" style="display:none">
+                            <div class="spinner"></div> <span>Generating...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="output-panel">
+                    <div class="output-label">AI Output</div>
+                    <button id="copy-objection" class="copy-btn" onclick="copyOutput('objection')">📋 Copy</button>
+                    <div id="output-objection">
+                        <div class="output-content empty">Output will appear here...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Profile Analyzer Panel ── -->
+            <div id="panel-linkedin" class="tool-panel">
+                <div class="card">
+                    <div class="card-title">🔍 Prospect Bio</div>
+                    <div class="form-group">
+                        <label class="form-label" for="l_bio">LinkedIn "About" Section or Bio</label>
+                        <textarea id="l_bio" class="form-textarea" rows="7"
+                            placeholder="Paste the prospect's bio here..."></textarea>
+                    </div>
+                    <div class="generate-btn-wrap">
+                        <button id="genBtn-linkedin" class="btn btn-primary" onclick="generate('linkedin')">🔍 Analyze
+                            Profile</button>
+                        <div id="spinner-linkedin" class="generating-state" style="display:none">
+                            <div class="spinner"></div> <span>Generating...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="output-panel">
+                    <div class="output-label">AI Output</div>
+                    <button id="copy-linkedin" class="copy-btn" onclick="copyOutput('linkedin')">📋 Copy</button>
+                    <div id="output-linkedin">
                         <div class="output-content empty">Output will appear here...</div>
                     </div>
                 </div>
