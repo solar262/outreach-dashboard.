@@ -1,6 +1,6 @@
 const API_BASE = '/api';
 let currentTool = 'strategy';
-let apiKey = sessionStorage.getItem('oas_api_key') || '';
+let apiKey = localStorage.getItem('oas_api_key') || '';
 let isGenerating = false;
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function onKeyInput(e) {
     const val = e.target.value.trim();
     apiKey = val;
-    sessionStorage.setItem('oas_api_key', val);
+    localStorage.setItem('oas_api_key', val);
     if (val.length > 8) validateKey(val);
     else setKeyStatus('', '');
 }
@@ -62,6 +62,21 @@ function updateUsageUI(data) {
 function clearUsageUI() {
     const el = document.getElementById('usageFill');
     if (el) el.style.width = '0%';
+}
+
+// ─── Logout ───────────────────────────────────────────────────────────────────
+function logout() {
+    localStorage.removeItem('oas_api_key');
+    apiKey = '';
+    const apiInput = document.getElementById('apiKeyInput');
+    if (apiInput) apiInput.value = '';
+    setKeyStatus('', '');
+    clearUsageUI();
+    const planEl = document.getElementById('usagePlan');
+    const numsEl = document.getElementById('usageNums');
+    if (planEl) planEl.textContent = 'Free Account';
+    if (numsEl) numsEl.textContent = 'Enter API Key';
+    showToast('Logged out successfully.', 'success');
 }
 
 // ─── Tool Switching ───────────────────────────────────────────────────────────
