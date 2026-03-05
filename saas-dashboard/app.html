@@ -38,6 +38,9 @@
         <aside class="sidebar">
             <div class="sidebar-section">
                 <div class="sidebar-label">Sales Machines</div>
+                <button class="tool-btn" data-tool="explorer" id="btn-explorer" onclick="switchTool('explorer')">
+                    <span class="tool-icon">🌐</span> Lead Explorer
+                </button>
                 <button class="tool-btn" data-tool="strategy" id="btn-strategy" onclick="switchTool('strategy')">
                     <span class="tool-icon">⚡</span> Strategy Engine
                 </button>
@@ -323,6 +326,31 @@
                     <button id="copy-linkedin" class="copy-btn" onclick="copyOutput('linkedin')">📋 Copy</button>
                     <div id="output-linkedin">
                         <div class="output-content empty">Output will appear here...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Lead Explorer Panel ── -->
+            <div id="panel-explorer" class="tool-panel">
+                <div class="card">
+                    <div class="card-title">🌐 Find High-Intent Leads</div>
+                    <div class="form-group" style="display: flex; gap: 10px;">
+                        <input id="ex_keyword" class="form-input" type="text" style="flex: 1;"
+                            placeholder="e.g. ecommerce SEO, struggling with sales, SaaS founder">
+                        <button id="btn-search-leads" class="btn btn-primary" onclick="searchLeads()"
+                            style="padding: 0 1.5rem">🔍 Search</button>
+                    </div>
+
+                    <div id="lead-results-container"
+                        style="margin-top: 20px; max-height: 400px; overflow-y: auto; display: none;">
+                        <!-- Lead rows will be injected here -->
+                    </div>
+                </div>
+                <!-- Mini Pitch Generator Panel -->
+                <div class="output-panel" id="explorer-pitch-panel" style="display: none; margin-top: 20px;">
+                    <button id="copy-explorer" class="copy-btn" onclick="copyOutput('explorer')">📋 Copy</button>
+                    <div id="output-explorer">
+                        <div class="output-content"></div>
                     </div>
                 </div>
             </div>

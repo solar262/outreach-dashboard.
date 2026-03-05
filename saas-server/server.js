@@ -16,8 +16,13 @@ app.use(express.static(path.join(__dirname, '../saas-dashboard')));
 // ─── Routes ───────────────────────────────────────────────────────────────────
 const aiRoutes = require('./routes/ai');
 const webhookRoutes = require('./routes/webhooks');
+const searchRoutes = require('./api/lead_search');
+const roastRoutes = require('./api/roast');
+
 app.use('/api', aiRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/search-leads', searchRoutes);
+app.use('/api/roast', roastRoutes);
 
 // ─── Serve Dashboard Pages ────────────────────────────────────────────────────
 app.get('/', (req, res) => {
@@ -30,6 +35,10 @@ app.get('/app', (req, res) => {
 
 app.get('/success', (req, res) => {
     res.sendFile(path.join(__dirname, '../saas-dashboard/success.html'));
+});
+
+app.get('/roaster', (req, res) => {
+    res.sendFile(path.join(__dirname, '../saas-dashboard/roast.html'));
 });
 
 // Admin: view all provisioned keys (protect this in production!)

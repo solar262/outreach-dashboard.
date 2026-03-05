@@ -96,6 +96,7 @@ function switchTool(tool) {
         email: { title: '📧 Email Architect', sub: 'Generate a high-converting 4-day cold email sequence.' },
         objection: { title: '🛡️ Objection Matrix', sub: 'Instantly generate psychological reframes for difficult sales objections.' },
         linkedin: { title: '🔍 Profile Analyzer', sub: 'Extract underlying traits from LinkedIn bios for better discovery calls.' },
+        explorer: { title: '🌐 Lead Explorer', sub: 'Find high-intent leads and generate 1-click personalized pitches.' },
     };
     const t = titles[tool] || {};
     const pageTitle = document.getElementById('pageTitle');
@@ -291,4 +292,113 @@ function showToast(msg, type = 'success') {
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 4000);
+}
+
+// ─── Lead Explorer Specific Logic ─────────────────────────────────────────────
+async function searchLeads() {
+    const keyword = document.getElementById('ex_keyword')?.value?.trim();
+    if (!keyword) {
+        showToast('Please enter a target keyword.', 'warning');
+        return;
+    }
+
+    const btn = document.getElementById('btn-search-leads');
+    const container = document.getElementById('lead-results-container');
+
+    btn.disabled = true;
+    btn.textContent = '🔍 Searching...';
+
+    try {
+        const res = await fetch(`${API_BASE}/search-leads?keyword=${encodeURIComponent(keyword)}`);
+        const data = await res.json();
+
+        container.style.display = 'block';
+
+        if (!data.success || !data.leads || data.leads.length === 0) {
+            container.innerHTML = '<div style="padding:20px; text-align:center; color:var(--text-muted)">No recent leads found for this keyword. Try another.</div>';
+            return;
+        }
+
+        let html = '';
+        data.leads.forEach((lead) => {
+            const shortContent = lead.content.length > 200 ? lead.content.substring(0, 200) + '...' : lead.content;
+            const escapeQuote = str => str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+            html += `
+            <div style="background:var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 10px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 8px;">
+                    <div>
+                        <span style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">${lead.platform} • r/${lead.subreddit}</span>
+                        <h4 style="margin: 4px 0; color:white;">${lead.title}</h4>
+                        <div style="font-size:0.85rem; color:var(--primary); margin-bottom: 8px;">@${lead.author}</div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="draftExplorerPitch(this, '${escapeQuote(lead.platform)}', '${escapeQuote(lead.author)}', '${escapeQuote(lead.content || lead.title)}')">⚡ Draft AI Pitch</button>
+                </div>
+                <p style="font-size:0.9rem; color:var(--text-dim); line-height:1.4; margin:0;">${shortContent}</p>
+                <div style="margin-top: 10px; text-align:right;">
+                    <a href="${lead.url}" target="_blank" style="font-size:0.8rem; color:var(--text-muted); text-decoration:none;">🔗 View Original</a>
+                </div>
+            </div>`;
+        });
+
+        container.innerHTML = html;
+        showToast(`Found ${data.leads.length} leads!`, 'success');
+
+    } catch (err) {
+        showToast('Error searching leads. Server might be offline.', 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '🔍 Search';
+    }
+}
+
+async function draftExplorerPitch(btnElement, platform, author, content) {
+    if (!apiKey) {
+        showToast('Enter your API key first.', 'error');
+        return;
+    }
+
+    const originalText = btnElement.textContent;
+    btnElement.disabled = true;
+    btnElement.textContent = '⚡ Generating...';
+
+    const payload = {
+        name: author,
+        platform: platform,
+        notes: content
+    };
+
+    const pitchPanel = document.getElementById('explorer-pitch-panel');
+    const outputContainer = document.querySelector('#output-explorer .output-content');
+
+    pitchPanel.style.display = 'block';
+    outputContainer.innerHTML = '<div class="spinner" style="display:inline-block; width:14px; height:14px;"></div> Generating personalized pitch...';
+
+    try {
+        const res = await fetch(`${API_BASE}/generate/strategy`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            showToast(data.error || 'Generation failed.', 'error');
+            outputContainer.innerHTML = `<span style="color:#ef4444">Error: ${data.error}</span>`;
+            return;
+        }
+
+        outputContainer.innerHTML = `<strong>Subject:</strong> Quick question regarding your post...<br><br>${data.message.replace(/\n/g, '<br>')}`;
+
+        if (data.usage) updateUsageUI(data.usage);
+        showToast('Pitch generated and 1 credit deducted!', 'success');
+
+    } catch (err) {
+        showToast('Server error.', 'error');
+        outputContainer.innerHTML = `<span style="color:#ef4444">Server error.</span>`;
+    } finally {
+        btnElement.disabled = false;
+        btnElement.textContent = originalText;
+    }
 }
