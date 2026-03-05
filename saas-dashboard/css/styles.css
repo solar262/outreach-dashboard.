@@ -792,6 +792,11 @@ footer {
 .form-select {
     cursor: pointer;
     appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
 }
 
 .form-row {
@@ -994,6 +999,7 @@ footer {
         display: none;
     }
 }
+
 /* --- Toasts & Notifications ------------------------------------------------ */
 .toast {
     position: fixed;
@@ -1030,6 +1036,7 @@ footer {
         transform: translateX(100%) scale(0.9);
         opacity: 0;
     }
+
     to {
         transform: translateX(0) scale(1);
         opacity: 1;
@@ -1114,7 +1121,7 @@ footer {
     border: 1px solid var(--border-high);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
 }
 
 .window-header {
@@ -1133,10 +1140,23 @@ footer {
     font-weight: 600;
 }
 
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot.red { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.red {
+    background: #ff5f56;
+}
+
+.dot.yellow {
+    background: #ffbd2e;
+}
+
+.dot.green {
+    background: #27c93f;
+}
 
 .window-body {
     padding: 2rem;
@@ -1144,8 +1164,16 @@ footer {
     font-size: 0.9rem;
 }
 
-.msg-bot { color: var(--text-muted); margin-bottom: 1.5rem; }
-.msg-ai { color: var(--accent-2); font-weight: 600; line-height: 1.6; }
+.msg-bot {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.msg-ai {
+    color: var(--accent-2);
+    font-weight: 600;
+    line-height: 1.6;
+}
 
 /* Agency Section */
 .agency-section {
@@ -1168,6 +1196,7 @@ footer {
         grid-template-columns: 1fr;
         text-align: center;
     }
+
     .spotlight-metrics {
         justify-content: center;
     }
