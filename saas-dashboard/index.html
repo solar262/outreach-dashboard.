@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Outreach Studio — Autonomous Sales Infrastructure</title>
+    <title>AI Outreach Studio — Sales Infrastructure</title>
     <meta name="description"
-        content="Generate AI-powered outreach messages, closing scripts, and viral comments in seconds. Built for founders and sales teams who scale.">
+        content="Premium AI-powered sales infrastructure for modern teams. Above-the-fold conversion architecture.">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -20,193 +20,108 @@
             Outreach Studio
         </a>
         <div class="nav-links">
-            <a href="#features">Features</a>
+            <a href="#features">Intelligence</a>
             <a href="#pricing">Pricing</a>
-            <a href="/app">App</a>
+            <a href="/app">Dashboard</a>
         </div>
         <div style="display:flex;gap:0.75rem">
-            <a href="/app" class="btn btn-ghost btn-sm">Log In</a>
-            <a href="/app" class="btn btn-primary btn-sm">Start Free →</a>
+            <a href="/app" class="btn btn-ghost">Log In</a>
+            <a href="/app" class="btn btn-primary">Start Free →</a>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <div class="hero">
-        <div class="hero-container">
+    <!-- Above the Fold / Main Conversion View -->
+    <main class="main-viewport">
+        <div class="hero-pricing-split">
+            <!-- Hero Content -->
             <div class="hero-content">
-                <div class="hero-badge">🚀 AI-Powered Outreach Infrastructure</div>
-                <h1>Turn Cold Leads Into <span class="gradient-text">Closed Deals</span> — Automatically</h1>
-                <p class="hero-sub">
-                    Generate hyper-personalized outreach, AI closing scripts, and viral authority content in seconds.
-                    Stop writing. Start closing.
-                </p>
-                <div class="hero-cta">
-                    <a href="/app" class="btn btn-primary btn-lg">Start Free — No Credit Card →</a>
-                    <a href="#features" class="btn btn-ghost btn-lg">See How It Works</a>
+                <div class="hero-badge">✦ v2.0 Enterprise Engine</div>
+                <h1>Scale Your <span class="gradient-text">Sales Output</span> With AI</h1>
+                <p>Deploy a coordinate sales machine that generates hyper-personalized outreach, viral comments, and
+                    closing scripts in seconds.</p>
+                <div class="hero-cta" style="justify-content: flex-start;">
+                    <a href="/app" class="btn btn-primary">Launch Studio →</a>
+                    <a href="#features" class="btn btn-ghost" style="margin-left:1rem">How it works</a>
                 </div>
             </div>
 
-            <div class="hero-visual">
-                <div class="hero-visual-glow"></div>
-                <img src="assets/hero_mockup.png" alt="AI Outreach Studio Mockup" class="hero-img">
-            </div>
+            <!-- Pricing Grid (Inside Viewport) -->
+            <div class="pricing-mini-grid">
+                <!-- Free -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <div class="plan-name">Starter</div>
+                        <div class="plan-price">$0</div>
+                        <p style="font-size:0.75rem; color:var(--text-muted)">Perfect for individual testing.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="check">✓</span> 5 generations / day</li>
+                        <li><span class="check">✓</span> 4 AI tool models</li>
+                        <li><span class="check">✓</span> Llama 3.3-70b</li>
+                    </ul>
+                    <a href="/app" class="btn btn-ghost" style="width:100%; font-size:0.75rem">Select Plan</a>
+                </div>
 
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-value">4</span>
-                    <span class="stat-label">AI Generators</span>
+                <!-- Pro -->
+                <div class="pricing-card featured">
+                    <div class="plan-header">
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price">$29<span>/mo</span></div>
+                        <p style="font-size:0.75rem; color:var(--text-muted)">For high-volume operators.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="check">✓</span> 500 generations / day</li>
+                        <li><span class="check">✓</span> Priority Groq speed</li>
+                        <li><span class="check">✓</span> Dedicated API Key</li>
+                    </ul>
+                    <a href="https://283733832600.gumroad.com/l/outreach-studio-pro" class="btn btn-primary"
+                        style="width:100%; font-size:0.75rem">Upgrade Now</a>
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-value">&lt;3s</span>
-                    <span class="stat-label">Per Generation</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-value">Groq</span>
-                    <span class="stat-label">Llama 3.3-70b</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <span class="stat-value">$0</span>
-                    <span class="stat-label">To Start</span>
+
+                <!-- Agency -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <div class="plan-name">Agency</div>
+                        <div class="plan-price">$99<span>/mo</span></div>
+                        <p style="font-size:0.75rem; color:var(--text-muted)">Unlimited scale & seats.</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li><span class="check">✓</span> Unlimited AI usage</li>
+                        <li><span class="check">✓</span> White-label ready</li>
+                        <li><span class="check">✓</span> Multi-seat access</li>
+                    </ul>
+                    <a href="https://283733832600.gumroad.com/l/outreach-studio-pro" class="btn btn-ghost"
+                        style="width:100%; font-size:0.75rem">Contact Sales</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Features -->
-    <section id="features">
-        <div class="section-label">✦ What It Does</div>
-        <h2 class="section-title">Four AI Engines. One Unfair Advantage.</h2>
-        <p class="section-sub">Each tool is trained to sound like the smartest person in the room — not a bot.</p>
-
+    <!-- Simplified Features (Below Fold) -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">One Advantage. Four Engines.</h2>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-box">
                 <div class="feature-icon">⚡</div>
-                <h3>Strategy Generator</h3>
-                <p>Input a lead's profile and get a tailored outreach strategy, personalized opening message, and
-                    follow-up — all in one click. Powered by lead context analysis.</p>
+                <h3>Strategy Engine</h3>
+                <p>Tailored outreach strategies based on lead profile analysis.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-box">
                 <div class="feature-icon">🎯</div>
-                <h3>Closer Engine</h3>
-                <p>Paste any conversation thread and get the perfect next reply to advance the deal. Books calls, sends
-                    strategic assets, and handles objections naturally.</p>
+                <h3>Closer Bot</h3>
+                <p>Books calls and handles objections with surgical precision.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-box">
                 <div class="feature-icon">🔥</div>
-                <h3>Viral Comment Generator</h3>
-                <p>Generate authority-building comments on high-traffic posts. Reframe discussions with systemic insight
-                    and become the smartest voice in any feed.</p>
+                <h3>Viral Machine</h3>
+                <p>Authority-building comments that dominate social feeds.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">✅</div>
-                <h3>Peer Validator</h3>
-                <p>Turn peer comments into coordinated social proof. Validate and expand with a new analytical layer —
-                    builds credibility for your entire network.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3>Llama 3.3-70b Intelligence</h3>
-                <p>Every generation runs on Groq-hosted Llama 3.3-70b — sub-second responses with enterprise-grade
-                    reasoning. Not GPT-3.5 quality. Top of the market.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔐</div>
-                <h3>Per-Seat API Keys</h3>
-                <p>Each user gets an API key with plan-based daily limits. Easily white-label for clients or team
-                    members. Agency plan supports unlimited seats.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" style="max-width:1100px;margin:0 auto">
-        <div style="text-align:center;margin-bottom:0.5rem">
-            <div class="section-label" style="display:inline-block">✦ Pricing</div>
-        </div>
-        <h2 class="section-title" style="text-align:center">Simple, Transparent Pricing</h2>
-        <p class="section-sub" style="text-align:center;margin:0 auto 0.5rem">Start free. Upgrade when you're ready to
-            scale.</p>
-
-        <div class="pricing-grid">
-            <!-- Free -->
-            <div class="pricing-card glass-card">
-                <div class="plan-name">Free</div>
-                <div class="plan-price">
-                    <span class="plan-price-num">$0</span>
-                    <span class="plan-price-period">/forever</span>
-                </div>
-                <p class="plan-desc">Perfect for testing the system before you commit.</p>
-                <ul class="plan-features">
-                    <li><span class="check">✓</span> 5 AI generations per day</li>
-                    <li><span class="check">✓</span> All 4 AI tools included</li>
-                    <li><span class="check">✓</span> Groq Llama 3.3-70b model</li>
-                    <li><span class="check">✓</span> API key access</li>
-                    <li style="color:var(--text-dim)">✗ Priority generation speed</li>
-                    <li style="color:var(--text-dim)">✗ Team seats</li>
-                </ul>
-                <a href="/app" class="btn btn-ghost plan-btn" style="text-decoration:none;display:flex">Start for Free
-                    →</a>
-            </div>
-
-            <!-- Pro (Popular) -->
-            <div class="pricing-card popular glass-card">
-                <div class="popular-badge">⭐ Most Popular</div>
-                <div class="plan-name">Pro</div>
-                <div class="plan-price">
-                    <span class="plan-price-num gradient-text">$29</span>
-                    <span class="plan-price-period">/month</span>
-                </div>
-                <p class="plan-desc">For founders and solo operators running serious outreach campaigns.</p>
-                <ul class="plan-features">
-                    <li><span class="check">✓</span> 500 AI generations per day</li>
-                    <li><span class="check">✓</span> All 4 AI tools included</li>
-                    <li><span class="check">✓</span> Groq Llama 3.3-70b model</li>
-                    <li><span class="check">✓</span> Priority generation speed</li>
-                    <li><span class="check">✓</span> API key access</li>
-                    <li style="color:var(--text-dim)">✗ Team seats</li>
-                </ul>
-                <a href="https://283733832600.gumroad.com/l/outreach-studio-pro" class="btn btn-primary plan-btn"
-                    style="text-decoration:none;display:flex">Upgrade to Pro →</a>
-            </div>
-
-            <!-- Agency -->
-            <div class="pricing-card glass-card">
-                <div class="plan-name">Agency</div>
-                <div class="plan-price">
-                    <span class="plan-price-num">$99</span>
-                    <span class="plan-price-period">/month</span>
-                </div>
-                <p class="plan-desc">For teams running outreach at scale across multiple clients and campaigns.</p>
-                <ul class="plan-features">
-                    <li><span class="check">✓</span> Unlimited AI generations</li>
-                    <li><span class="check">✓</span> All 4 AI tools included</li>
-                    <li><span class="check">✓</span> Groq Llama 3.3-70b model</li>
-                    <li><span class="check">✓</span> Priority generation speed</li>
-                    <li><span class="check">✓</span> Multiple API keys / seats</li>
-                    <li><span class="check">✓</span> White-label ready</li>
-                </ul>
-                <a href="https://283733832600.gumroad.com/l/outreach-studio-pro" class="btn btn-outline plan-btn"
-                    style="text-decoration:none;display:flex">Get Agency Access →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Banner -->
-    <section style="text-align:center;padding:4rem 2rem">
-        <div style="max-width:600px;margin:0 auto">
-            <h2 class="section-title">Ready to Build Your Outreach Machine?</h2>
-            <p class="section-sub" style="margin:0 auto 2rem">Start generating personalized outreach in under 60
-                seconds. No setup. No learning curve.</p>
-            <a href="/app" class="btn btn-primary btn-lg" style="text-decoration:none">Launch the App →</a>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 AI Outreach Studio · Built on Groq Llama 3.3-70b · <a href="/app"
-                style="color:var(--accent-2);text-decoration:none">Open App</a></p>
+        <p>© 2026 AI Outreach Studio · Enterprise Grade Infrastructure · <a href="/app"
+                style="color:var(--accent-secondary); text-decoration:none">App Login</a></p>
     </footer>
 
 </body>
