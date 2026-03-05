@@ -1035,3 +1035,140 @@ footer {
         opacity: 1;
     }
 }
+
+/* --- Marketing Sections --------------------------------------------------- */
+.spotlight-section {
+    padding: 10rem 5%;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 80% 50%, rgba(217, 70, 239, 0.08) 0%, transparent 50%);
+}
+
+.spotlight-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.success-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--gradient-subtle);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.spotlight-content h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.spotlight-story {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.spotlight-metrics {
+    display: flex;
+    gap: 3rem;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-val {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+}
+
+.metric-lab {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.4rem;
+}
+
+/* Glass UI Window Mockup */
+.glass-window {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-high);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);
+}
+
+.window-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.window-header span {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+    font-weight: 600;
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.window-body {
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
+.msg-bot { color: var(--text-muted); margin-bottom: 1.5rem; }
+.msg-ai { color: var(--accent-2); font-weight: 600; line-height: 1.6; }
+
+/* Agency Section */
+.agency-section {
+    padding: 8rem 5%;
+    text-align: center;
+}
+
+.agency-cta {
+    max-width: 900px;
+    margin: 4rem auto 0;
+}
+
+.glass-glow {
+    background: radial-gradient(circle at top left, rgba(139, 92, 246, 0.1), transparent);
+    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+@media (max-width: 992px) {
+    .spotlight-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .spotlight-metrics {
+        justify-content: center;
+    }
+}
