@@ -799,6 +799,12 @@ footer {
     padding-right: 2.5rem;
 }
 
+.form-select option {
+    color: #1a1a2e;
+    /* Ensure dropdown options are readable */
+    background: #ffffff;
+}
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
