@@ -41,6 +41,11 @@ app.get('/roaster', (req, res) => {
     res.sendFile(path.join(__dirname, '../saas-dashboard/roast.html'));
 });
 
+// Universal Validation Agent handler
+app.get('/validate/:niche', (req, res) => {
+    res.sendFile(path.join(__dirname, '../saas-dashboard/validate/agent.html'));
+});
+
 // Admin: view all provisioned keys (protect this in production!)
 app.get('/api/admin/keys', (req, res) => {
     const adminKey = req.headers['x-admin-key'];

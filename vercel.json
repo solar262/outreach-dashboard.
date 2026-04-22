@@ -2,16 +2,6 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/launchpad", "destination": "/" },
-    { "source": "/tools/market-size", "destination": "/saas-dashboard/tools/market-size/index.html" },
-    { "source": "/tools/social-proof", "destination": "/saas-dashboard/tools/social-proof/index.html" },
-    { "source": "/tools/competitor-audit", "destination": "/saas-dashboard/tools/competitor-audit/index.html" },
-    { "source": "/tools/outreach-roi", "destination": "/saas-dashboard/tools/outreach-roi/index.html" },
-    { "source": "/validate/:niche*", "destination": "/saas-dashboard/validate/agent.html" },
-    { "source": "/privacy.html", "destination": "/saas-dashboard/privacy.html" },
-    { "source": "/terms.html", "destination": "/saas-dashboard/terms.html" },
-    { "source": "/about.html", "destination": "/saas-dashboard/about.html" },
-    { "source": "/contact.html", "destination": "/saas-dashboard/contact.html" },
     { "source": "/(.*)", "destination": "/saas-server/server.js" }
   ],
   "routes": [
