@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "public": true,
   "cleanUrls": true,
   "rewrites": [
     { "source": "/launchpad", "destination": "/" },
@@ -8,7 +7,7 @@
     { "source": "/tools/social-proof", "destination": "/saas-dashboard/tools/social-proof/index.html" },
     { "source": "/tools/competitor-audit", "destination": "/saas-dashboard/tools/competitor-audit/index.html" },
     { "source": "/tools/outreach-roi", "destination": "/saas-dashboard/tools/outreach-roi/index.html" },
-    { "source": "/validate/(.*)", "destination": "/saas-dashboard/validate/agent.html" },
+    { "source": "/validate/:niche*", "destination": "/saas-dashboard/validate/agent.html" },
     { "source": "/privacy.html", "destination": "/saas-dashboard/privacy.html" },
     { "source": "/terms.html", "destination": "/saas-dashboard/terms.html" },
     { "source": "/about.html", "destination": "/saas-dashboard/about.html" },
@@ -16,9 +15,7 @@
     { "source": "/(.*)", "destination": "/saas-server/server.js" }
   ],
   "routes": [
-    { "src": "/ads.txt", "dest": "/saas-dashboard/ads.txt" }
-  ],
-  "errorPages": [
-    { "status": 404, "dest": "/saas-dashboard/404.html" }
+    { "src": "/ads.txt", "dest": "/saas-dashboard/ads.txt" },
+    { "handle": "filesystem" }
   ]
 }
