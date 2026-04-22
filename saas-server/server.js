@@ -56,6 +56,15 @@ app.get('/api/admin/keys', (req, res) => {
     res.json(getAllKeys());
 });
 
+// GLOBAL SOLIDITY FALLBACK: Intercept every unhandled route and serve the Intelligence Agent
+app.get('*', (req, res) => {
+    // Exclude API routes to avoid interfering with backend logic
+    if (req.path.startsWith('/api/')) {
+        return res.status(404).json({ error: 'Resource not found' });
+    }
+    res.sendFile(path.join(__dirname, '../saas-dashboard/universal-agent.html'));
+});
+
 // ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(cfg.PORT, () => {
     console.log(`\n🚀 MarketVibe Hub`);
