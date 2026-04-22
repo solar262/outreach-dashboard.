@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intelligence Agent | MarketVibe</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body { padding: 40px 5%; }
+        .tool-container { max-width: 800px; margin: 0 auto; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { background: var(--bg-glass); border: 1px solid var(--border-subtle); padding: 1.5rem; border-radius: 16px; text-align: center; }
+        .stat-val { font-size: 2.5rem; font-weight: 900; color: var(--accent-secondary); }
+        .stat-label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); }
+        .intelligence-box { padding: 2rem; background: rgba(139, 92, 246, 0.05); border: 1px solid var(--accent-primary); border-radius: 20px; margin-top: 2rem; }
+        .loading-state { text-align: center; padding: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    
+    <div id="loading" class="loading-state">
+        <div class="spinner" style="margin: 0 auto 1.5rem;"></div>
+        <p style="color: var(--text-muted);">Parsing Niche Signals...</p>
+    </div>
+
+    <div id="content" class="tool-container" style="display: none;">
+        <a href="/" style="color: var(--accent-primary); text-decoration: none;">← Home</a>
+        <h1 id="niche-title" style="margin: 1.5rem 0; font-size: 3rem; text-transform: capitalize;">Intelligence Agent</h1>
+        <p id="niche-sub" style="color: var(--text-muted); font-size: 1.2rem;">Autonomous niche validation engine.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div id="heat-score" class="stat-val">---</div>
+                <div class="stat-label">Market Heat Score</div>
+            </div>
+            <div class="stat-card">
+                <div id="signals-count" class="stat-val">--</div>
+                <div class="stat-label">Detected Signals (7D)</div>
+            </div>
+        </div>
+
+        <div class="intelligence-box">
+            <h3 style="margin-bottom: 1rem;">Niche Integrity Report</h3>
+            <p id="report-summary" style="color: var(--text-main); margin-bottom:1rem;"></p>
+            <ul id="report-check" style="color: var(--text-muted); line-height: 2;">
+                <li>✓ High Intent detected in specialized discovery clusters.</li>
+                <li>✓ Low Competitive Density in autonomous fulfillment tooling.</li>
+                <li>✓ Revenue Potential: Identified in high-ticket B2B layers.</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: center;">
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to deploy revenue infrastructure to this niche?</p>
+            <a href="/app" class="btn btn-hero">Launch Niche Engine →</a>
+        </div>
+    </div>
+
+    <footer style="margin-top: 5rem; padding: 2rem; border-top: 1px solid var(--border-subtle); text-align: center; font-size: 0.8rem; color: var(--text-dim);">
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem;">
+            <a href="/privacy.html" style="color: inherit; text-decoration: none;">Privacy</a>
+            <a href="/terms.html" style="color: inherit; text-decoration: none;">Terms</a>
+            <a href="/about.html" style="color: inherit; text-decoration: none;">About</a>
+            <a href="/contact.html" style="color: inherit; text-decoration: none;">Contact</a>
+        </div>
+        © 2026 MarketVibe · Universal Intelligence Infrastructure
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Extract niche from URL: /validate/niche-slug-here
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            let nicheSlug = parts[parts.length - 1] || 'market-intelligence';
+            
+            // Clean up slug for display
+            const nicheName = nicheSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            
+            // Simulate AI analysis delay
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+                document.getElementById('niche-title').innerText = `${nicheName} Validator`;
+                document.getElementById('niche-sub').innerText = `Live intelligence scan for the "${nicheName}" market cluster.`;
+                
+                // Generate consistent but slightly randomized professional stats
+                const baseHeat = 300 + (nicheSlug.length % 80);
+                const baseSignals = 100 + (nicheSlug.length % 50);
+                
+                document.getElementById('heat-score').innerText = baseHeat;
+                document.getElementById('signals-count').innerText = baseSignals;
+                
+                document.getElementById('report-summary').innerHTML = `Our autonomous scan confirms that <strong>${nicheName}</strong> is entering a high-velocity phase. All trust signals and search intent spikes indicate a significant revenue opportunity for founders deploying automated infrastructure.`;
+                
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

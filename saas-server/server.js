@@ -53,7 +53,7 @@ app.get('/api/admin/keys', (req, res) => {
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(cfg.PORT, () => {
-    console.log(`\n🚀 AI Outreach Studio`);
+    console.log(`\n🚀 MarketVibe Hub`);
     console.log(`   Landing Page : http://localhost:${cfg.PORT}`);
     console.log(`   App Dashboard: http://localhost:${cfg.PORT}/app`);
     console.log(`   API Base     : http://localhost:${cfg.PORT}/api`);
