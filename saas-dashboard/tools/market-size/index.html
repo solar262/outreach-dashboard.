@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Size Analysis | MarketVibe</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        body { padding: 40px 5%; }
+        .tool-container { max-width: 800px; margin: 0 auto; }
+        .result-box { margin-top: 2rem; padding: 1.5rem; background: rgba(139, 92, 246, 0.1); border-radius: 12px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    <div class="tool-container">
+        <a href="/" style="color: var(--accent-primary); text-decoration: none;">← Home</a>
+        <h1 style="margin: 1.5rem 0; font-size: 2.5rem;">Market Size Calculator</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Assess your Total Addressable Market (TAM) for AdSense-compliant growth analysis.</p>
+        
+        <div class="card">
+            <div class="form-group">
+                <label class="form-label">Total Potential Customers</label>
+                <input type="number" id="total_cust" class="form-input" placeholder="e.g. 500000">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Annual Value per Customer ($)</label>
+                <input type="number" id="val_cust" class="form-input" placeholder="e.g. 1200">
+            </div>
+            <button class="btn btn-hero" onclick="calculate()">Analyze Market</button>
+        </div>
+
+        <div id="result" class="result-box">
+            <h3 style="color: var(--accent-secondary);">Analysis Result</h3>
+            <p id="res-text"></p>
+        </div>
+    </div>
+    <script>
+        function calculate() {
+            const count = document.getElementById('total_cust').value;
+            const val = document.getElementById('val_cust').value;
+            if (count && val) {
+                const tam = (count * val).toLocaleString();
+                document.getElementById('res-text').innerText = `Your Total Addressable Market (TAM) is estimated at $${tam}. For AdSense compliance, this data supports the high-quality utility requirement for financial and business analysis.`;
+                document.getElementById('result').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
