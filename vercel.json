@@ -1,8 +1,14 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "public": true,
   "rewrites": [
     { "source": "/ads.txt", "destination": "/ads.txt" },
     { "source": "/(.*)", "destination": "/saas-server/server.js" }
-  ]
+  ],
+  "functions": {
+    "saas-server/server.js": {
+      "runtime": "vercel-node@latest"
+    }
+  }
 }
