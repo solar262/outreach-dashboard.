@@ -11,7 +11,9 @@ app.use(cors());
 // NOTE: Stripe webhooks need raw body — mount BEFORE bodyParser.json()
 app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../saas-dashboard')));
+// Serve static dashboard files from the ROOT directory (Hardened Flattening)
+app.use(express.static(path.join(__dirname, '../')));
+app.use('/tools', express.static(path.join(__dirname, '../tools')));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 const aiRoutes = require('./routes/ai');
@@ -62,7 +64,7 @@ app.get('*', (req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({ error: 'Resource not found' });
     }
-    res.sendFile(path.join(__dirname, '../saas-dashboard/universal-agent.html'));
+    res.sendFile(path.join(__dirname, '../universal-agent.html'));
 });
 
 // ─── Start Server ─────────────────────────────────────────────────────────────

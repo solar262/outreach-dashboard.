@@ -2,7 +2,7 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/ads.txt", "destination": "/saas-dashboard/ads.txt" },
+    { "source": "/ads.txt", "destination": "/ads.txt" },
     { "source": "/(.*)", "destination": "/saas-server/server.js" }
   ]
 }
