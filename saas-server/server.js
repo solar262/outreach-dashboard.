@@ -28,24 +28,24 @@ app.use('/api/roast', roastRoutes);
 
 // ─── Serve Dashboard Pages ────────────────────────────────────────────────────
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../saas-dashboard/index.html'));
+    res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 app.get('/app', (req, res) => {
-    res.sendFile(path.join(__dirname, '../saas-dashboard/app.html'));
+    res.sendFile(path.join(__dirname, '../app.html'));
 });
 
 app.get('/success', (req, res) => {
-    res.sendFile(path.join(__dirname, '../saas-dashboard/success.html'));
+    res.sendFile(path.join(__dirname, '../success.html'));
 });
 
 app.get('/roaster', (req, res) => {
-    res.sendFile(path.join(__dirname, '../saas-dashboard/roast.html'));
+    res.sendFile(path.join(__dirname, '../roast.html'));
 });
 
 // Universal Validation Agent handler
 app.get('/validate/:niche', (req, res) => {
-    res.sendFile(path.join(__dirname, '../saas-dashboard/validate/agent.html'));
+    res.sendFile(path.join(__dirname, '../validate/agent.html'));
 });
 
 // Admin: view all provisioned keys (protect this in production!)

@@ -1,10 +1,14 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "public": true,
   "rewrites": [
-    { "source": "/ads.txt", "destination": "/ads.txt" },
-    { "source": "/(.*)", "destination": "/saas-server/server.js" }
+    { "source": "/api/(.*)", "destination": "/saas-server/server.js" },
+    { "source": "/api/webhooks/stripe", "destination": "/saas-server/server.js" },
+    { "source": "/api/search-leads", "destination": "/saas-server/server.js" },
+    { "source": "/api/roast", "destination": "/saas-server/server.js" },
+    { "source": "/roaster", "destination": "/roast.html" },
+    { "source": "/validate/(.*)", "destination": "/validate/agent.html" },
+    { "source": "/(.*)", "destination": "/universal-agent.html" }
   ],
   "functions": {
     "saas-server/server.js": {
